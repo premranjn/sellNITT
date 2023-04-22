@@ -1,7 +1,9 @@
 package com.sheryians.major.controller;
 
+import com.sheryians.major.dto.ProductDTO;
 import com.sheryians.major.model.Category;
 import com.sheryians.major.service.CategoryService;
+import com.sheryians.major.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +16,13 @@ import java.util.Optional;
 
 @Controller
 public class AdminController {
+
+    //category section starts:
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    ProductService productService;
+
     @GetMapping("/admin")
     public String adminHome(){
         return "adminHome";
@@ -25,13 +32,11 @@ public class AdminController {
         model.addAttribute("categories", categoryService.getAllCategory());
         return "categories";
     }
-
     @GetMapping("/admin/categories/add")
     public String getCatAdd(Model model){
         model.addAttribute("category", new Category());
         return "categoriesAdd";
     }
-
     @PostMapping("/admin/categories/add")
     public String postCatAdd(@ModelAttribute("category") Category category){
         categoryService.addCategory(category);
@@ -51,4 +56,18 @@ public class AdminController {
        }else
            return "404";
    }
+    //Category section ends here
+
+    // Product section starts here
+    @GetMapping("/admin/products")
+    public String products(Model model){
+        model.addAttribute("products", productService.getAllProduct());
+        return "products";
+    }
+    @GetMapping("/admin/products/add")
+    public String productAddGet(Model model){
+        model.addAttribute("productDTO", new ProductDTO());
+        model.addAttribute("categories", categoryService.getAllCategory());
+        return "productsAdd";
+    }
 }
