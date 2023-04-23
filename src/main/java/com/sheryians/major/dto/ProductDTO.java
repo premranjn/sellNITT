@@ -15,6 +15,7 @@ public class ProductDTO {
     private double price;
     private String contact;
     private String hostel;
+    private double weight;
 
 
     private String description;
