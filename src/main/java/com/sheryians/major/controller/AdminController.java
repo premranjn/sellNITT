@@ -20,6 +20,8 @@ import java.util.Optional;
 
 @Controller
 public class AdminController {
+
+
     public static  String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/productImages";
     //category section starts:
     @Autowired
@@ -102,4 +104,31 @@ public class AdminController {
 
         return "redirect:/admin/products";
     }
+
+    @GetMapping("/admin/product/delete/{id}")
+    public String deleteProduct(@PathVariable long id){
+        productService.removeProductById(id);
+        return "redirect:/admin/products";
+    }
+
+    @GetMapping("/admin/product/update/{id}")
+    public String updateProductGet(@PathVariable long id, Model model){
+            Product product = productService.getProductById(id).get();
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setId(product.getId());
+            productDTO.setName(product.getName());
+            productDTO.setCategoryId(product.getCategory().getId());
+            productDTO.setPrice(product.getPrice());
+            productDTO.setWeight(product.getWeight());
+            productDTO.setDescription(product.getDescription());
+            productDTO.setImageName(product.getImageName());
+            productDTO.setContact(product.getContact());
+            productDTO.setHostel(product.getHostel());
+
+            model.addAttribute("categories", categoryService.getAllCategory());
+            model.addAttribute("productDTO", productDTO);
+
+            return "productsAdd";
+    }
+
 }
