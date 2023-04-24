@@ -3,6 +3,7 @@ package com.sheryians.major.controller;
 import com.sheryians.major.dto.ProductDTO;
 import com.sheryians.major.model.Category;
 import com.sheryians.major.model.Product;
+import com.sheryians.major.repository.ProductRepository;
 import com.sheryians.major.service.CategoryService;
 import com.sheryians.major.service.ProductService;
 import org.apache.tomcat.jni.File;

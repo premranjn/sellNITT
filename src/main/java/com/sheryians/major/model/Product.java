@@ -18,7 +18,7 @@ public class Product{
     @JoinColumn(name = "category_id", referencedColumnName = "category_id") // merging the table
     private Category category;
     private double price;
-    private double weight;
+    private long weight;
 
     private String contact;
     private String hostel;
