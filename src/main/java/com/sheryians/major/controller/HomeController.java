@@ -1,5 +1,6 @@
 package com.sheryians.major.controller;
 
+import com.sheryians.major.global.GlobalData;
 import com.sheryians.major.service.CategoryService;
 import com.sheryians.major.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class HomeController {
 
     @GetMapping({"/", "/home"})
     public String home(Model model){
+        model.addAttribute("cartCount", GlobalData.cart.size());
         return "index";
     }
 
@@ -24,6 +26,8 @@ public class HomeController {
     public String shop (Model model){
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute("cartCount", GlobalData.cart.size());
+
         return "shop";
     }
 
@@ -31,12 +35,16 @@ public class HomeController {
     public String shopByCategory(Model model, @PathVariable int id){
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", productService.getAllProductsByCategoryId(id));
+        model.addAttribute("cartCount", GlobalData.cart.size());
+
         return "shop";
     }
 
     @GetMapping("/shop/viewproduct/{id}")
     public String viewsProduct(Model model, @PathVariable int id){
         model.addAttribute("product", productService.getProductById(id).get());
+        model.addAttribute("cartCount", GlobalData.cart.size());
+
         return "viewProduct";
     }
 
